@@ -12,6 +12,17 @@ def gaussian(h, nug, sill, rang):
     variogram =  nug + (sill - nug)*(1.-np.exp(-(2*h/rang)**2))
     return variogram
 
+def kernel_matern32(h, sigma2, ell):
+    r = np.sqrt(3.0) * h / ell
+    return sigma2 * (1.0 + r) * np.exp(-r)
+
+def kernel_matern52(h, sigma2, ell):
+    r = np.sqrt(5.0) * h / ell
+    return sigma2 * (1.0 + r + r**2 / 3.0) * np.exp(-r)
+
 mtags = {"sph" : spherical,
         "exp" : exponential,
-        "gaus" : gaussian}
+        "gaus" : gaussian
+	"mat32": matern32
+	"mat52": matern52
+	}
